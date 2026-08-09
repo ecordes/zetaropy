@@ -149,16 +149,14 @@ body {
 
 .hero {
     max-width: var(--max-width);
-    min-height: 680px;
 
     margin: auto;
-    padding: 80px 5% 120px;
+    padding: 90px 5% 110px;
 
     display: grid;
-    grid-template-columns: 1fr 0.9fr;
-    gap: 70px;
+    justify-items: center;
 
-    align-items: center;
+    text-align: center;
 }
 
 .eyebrow {
@@ -194,7 +192,7 @@ body {
 .hero-text {
     max-width: 520px;
 
-    margin: 30px 0;
+    margin: 30px auto;
 
     color: var(--muted);
 
@@ -208,6 +206,8 @@ body {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
+
+    justify-content: center;
 }
 
 .button {
@@ -239,30 +239,6 @@ body {
 
 .button-secondary {
     border: 1px solid rgba(32, 32, 29, 0.2);
-}
-
-
-/* ---------- Hero image ---------- */
-
-.hero-image {
-    position: relative;
-}
-
-.image-frame {
-    position: relative;
-
-    overflow: hidden;
-
-    border-radius: 45% 55% 50% 40% / 45% 40% 60% 55%;
-
-    box-shadow:
-        25px 25px 0 var(--sage),
-        0 25px 70px rgba(32, 32, 29, 0.15);
-}
-
-.image-frame img {
-    height: 560px;
-    object-fit: cover;
 }
 
 
@@ -495,18 +471,7 @@ body {
     }
 
     .hero {
-        grid-template-columns: 1fr;
-
         padding-top: 50px;
-    }
-
-    .hero-image {
-        max-width: 600px;
-        margin: auto;
-    }
-
-    .image-frame img {
-        height: 430px;
     }
 
     .about {
