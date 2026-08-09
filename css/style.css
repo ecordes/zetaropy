@@ -1,0 +1,551 @@
+/* =========================================
+   ZETAROPY
+   Main stylesheet
+   ========================================= */
+
+
+/* ---------- Fonts ---------- */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+
+/* ---------- Variables ---------- */
+
+:root {
+    --cream: #f7f3eb;
+    --cream-dark: #ebe4d7;
+
+    --ink: #20201d;
+    --muted: #716f68;
+
+    --orange: #e97845;
+    --orange-dark: #c85c2f;
+
+    --sage: #a9b7a0;
+    --dark-green: #26352d;
+
+    --white: #ffffff;
+
+    --max-width: 1180px;
+
+    --radius: 24px;
+}
+
+
+/* ---------- Reset ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    color: var(--ink);
+    background: var(--cream);
+
+    font-family: "DM Sans", sans-serif;
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   BACKGROUND
+   ========================================= */
+
+body {
+    background-color: var(--cream);
+
+    /*
+       Subtle organic background pattern.
+       No image file required.
+    */
+
+    background-image:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(233, 120, 69, 0.10) 0,
+            rgba(233, 120, 69, 0.10) 2px,
+            transparent 3px
+        ),
+        radial-gradient(
+            circle at 90% 30%,
+            rgba(169, 183, 160, 0.16) 0,
+            rgba(169, 183, 160, 0.16) 3px,
+            transparent 4px
+        );
+
+    background-size:
+        90px 90px,
+        140px 140px;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.site-header {
+    position: relative;
+    z-index: 10;
+
+    padding: 22px 5%;
+}
+
+.navbar {
+    max-width: var(--max-width);
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.logo::before {
+    content: "🐾";
+    margin-right: 8px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.nav-links a {
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--orange);
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero {
+    max-width: var(--max-width);
+    min-height: 680px;
+
+    margin: auto;
+    padding: 80px 5% 120px;
+
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    gap: 70px;
+
+    align-items: center;
+}
+
+.eyebrow {
+    display: inline-block;
+
+    margin-bottom: 18px;
+
+    color: var(--orange);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+.hero h1 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 0.95;
+
+    letter-spacing: -0.055em;
+}
+
+.hero h1 span,
+.section-heading h2 span,
+.cta h2 span {
+    color: var(--orange);
+}
+
+.hero-text {
+    max-width: 520px;
+
+    margin: 30px 0;
+
+    color: var(--muted);
+
+    font-size: 1.15rem;
+}
+
+
+/* ---------- Buttons ---------- */
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.button {
+    display: inline-flex;
+
+    padding: 14px 24px;
+
+    border-radius: 999px;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    color: var(--white);
+    background: var(--orange);
+}
+
+.button-primary:hover {
+    background: var(--orange-dark);
+}
+
+.button-secondary {
+    border: 1px solid rgba(32, 32, 29, 0.2);
+}
+
+
+/* ---------- Hero image ---------- */
+
+.hero-image {
+    position: relative;
+}
+
+.image-frame {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 45% 55% 50% 40% / 45% 40% 60% 55%;
+
+    box-shadow:
+        25px 25px 0 var(--sage),
+        0 25px 70px rgba(32, 32, 29, 0.15);
+}
+
+.image-frame img {
+    height: 560px;
+    object-fit: cover;
+}
+
+
+/* =========================================
+   GENERAL SECTIONS
+   ========================================= */
+
+.section {
+    max-width: var(--max-width);
+
+    margin: auto;
+    padding: 120px 5%;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(2.7rem, 5vw, 4.5rem);
+    line-height: 1;
+
+    letter-spacing: -0.04em;
+}
+
+.section-heading.centered {
+    text-align: center;
+}
+
+.section-heading.centered p {
+    max-width: 520px;
+    margin: 20px auto 0;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   ABOUT
+   ========================================= */
+
+.about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+
+    align-items: center;
+}
+
+.about-text {
+    color: var(--muted);
+
+    font-size: 1.15rem;
+}
+
+.about-text p {
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   CATS
+   ========================================= */
+
+.cats-section {
+    padding-top: 80px;
+}
+
+.cat-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 35px;
+
+    margin-top: 70px;
+}
+
+.cat-card {
+    overflow: hidden;
+
+    background: var(--white);
+
+    border-radius: var(--radius);
+
+    box-shadow:
+        0 15px 45px rgba(32, 32, 29, 0.07);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.cat-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 25px 60px rgba(32, 32, 29, 0.12);
+}
+
+.cat-image {
+    overflow: hidden;
+}
+
+.cat-image img {
+    height: 360px;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+.cat-card:hover .cat-image img {
+    transform: scale(1.04);
+}
+
+.cat-card-content {
+    position: relative;
+
+    padding: 28px 30px 32px;
+}
+
+.cat-number {
+    color: var(--orange);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+.cat-card h3 {
+    margin: 5px 0 8px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 2rem;
+}
+
+.cat-card p {
+    margin: 0;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   CALL TO ACTION
+   ========================================= */
+
+.cta {
+    margin-top: 80px;
+
+    padding: 130px 5%;
+
+    color: var(--white);
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(233, 120, 69, 0.35),
+            transparent 30%
+        ),
+        var(--dark-green);
+}
+
+.cta-inner {
+    max-width: 900px;
+    margin: auto;
+}
+
+.cta h2 {
+    margin: 0 0 40px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(3rem, 6vw, 5.5rem);
+
+    line-height: 0.98;
+
+    letter-spacing: -0.045em;
+}
+
+.button-light {
+    color: var(--dark-green);
+    background: var(--white);
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.site-footer {
+    max-width: var(--max-width);
+
+    margin: auto;
+    padding: 45px 5%;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    color: var(--muted);
+
+    font-size: 0.85rem;
+}
+
+.site-footer strong {
+    display: block;
+
+    color: var(--ink);
+
+    font-size: 1rem;
+}
+
+.site-footer span {
+    display: block;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+
+        padding-top: 50px;
+    }
+
+    .hero-image {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .image-frame img {
+        height: 430px;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+    }
+
+    .cat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer {
+        flex-direction: column;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .nav-links a:nth-child(1) {
+        display: none;
+    }
+
+    .hero {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+
+    .section {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .cat-image img {
+        height: 280px;
+    }
+}
