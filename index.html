@@ -27,9 +27,11 @@
             </a>
 
             <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#cats">Cats</a>
-                <a href="#contact">Contact</a>
+                <a href="index.html" class="active">Home</a>
+                <a href="cats.html">Cats</a>
+                <a href="journal.html">Journal</a>
+                <a href="index.html#about" class="nav-secondary">About</a>
+                <a href="index.html#contact" class="nav-secondary">Contact</a>
             </div>
         </nav>
     </header>
@@ -55,12 +57,12 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="#cats" class="button button-primary">
+                    <a href="cats.html" class="button button-primary">
                         Meet the cats
                     </a>
 
-                    <a href="#about" class="button button-secondary">
-                        Explore
+                    <a href="journal.html" class="button button-secondary">
+                        Read the journal
                     </a>
                 </div>
 
@@ -98,54 +100,23 @@
         </section>
 
 
-        <!-- Cat Gallery -->
+        <!-- Featured cats -->
         <section id="cats" class="section cats-section">
+
             <div class="section-heading centered">
                 <span class="eyebrow">THE IMPORTANT STUFF</span>
                 <h2>
                     Meet the <span>cats.</span>
                 </h2>
                 <p>
-                    Meet the crew - past and present.
+                    Zeta and Entropy hold the place down today.
+                    The full crew, past and present, has its own page.
                 </p>
             </div>
+
             <div class="cat-grid">
-                <article class="cat-card">
-                    <div class="cat-image">
-                        <img
-                            src="images/cats/young_paradox.JPG"
-                            alt="Young orange cat lying upside down on top of a cat tree"
-                            loading="lazy"
-                        >
-                    </div>
-                    <div class="cat-card-content">
-                        <span class="cat-number">01</span>
-                        <h3>The Paradox</h3>
-                        <p>
-                            Watches everything. Says nothing.
-                            Probably knows what's going on.
-                        </p>
-                    </div>
-                </article>
-                <article class="cat-card">
 
-                    <div class="cat-image">
-                        <img
-                            src="images/cats/entropy_catio.jpeg"
-                            alt="Gray and white cat perched in the catio, looking up"
-                            loading="lazy"
-                        >
-                    </div>
-
-                    <div class="cat-card-content">
-                        <span class="cat-number">02</span>
-                        <h3>The Strategist</h3>
-                        <p>
-                            Diligently trying to learn the next trick
-                        </p>
-                    </div>
-                </article>
-                <article class="cat-card">
+                <a class="cat-card" href="cats/zeta.html">
                     <div class="cat-image">
                         <img
                             src="images/cats/zeta_catio.jpeg"
@@ -154,87 +125,90 @@
                         >
                     </div>
                     <div class="cat-card-content">
-                        <span class="cat-number">03</span>
-                        <h3>The Thinker</h3>
+                        <span class="cat-number">01</span>
+                        <h3>Zeta</h3>
                         <p>
-                            Deep in thought about how to get you to do what she wants.
+                            Deep in thought about how to get you
+                            to do what she wants.
                         </p>
+                        <span class="card-more">View profile →</span>
                     </div>
-                </article>
-                <article class="cat-card">
+                </a>
+
+                <a class="cat-card" href="cats/entropy.html">
                     <div class="cat-image">
                         <img
-                            src="images/cats/howl_on_puzzle.JPG"
-                            alt="Fluffy cream cat sprawled across a half-finished jigsaw puzzle"
+                            src="images/cats/entropy_catio.jpeg"
+                            alt="Gray and white cat perched in the catio, looking up"
                             loading="lazy"
                         >
                     </div>
-
                     <div class="cat-card-content">
-                        <span class="cat-number">04</span>
-                        <h3>The Cautious One</h3>
+                        <span class="cat-number">02</span>
+                        <h3>Entropy</h3>
                         <p>
-                           Be careful out there.
+                            Diligently trying to learn the next trick.
                         </p>
+                        <span class="card-more">View profile →</span>
                     </div>
+                </a>
 
-                </article>
-                <article class="cat-card">
-                    <div class="cat-image">
-                        <img
-                            src="images/cats/upside_down_par.JPG"
-                            alt="Orange cat stretched out belly-up in a sunny spot on the couch"
-                            loading="lazy"
-                        >
-                    </div>
+            </div>
 
-                    <div class="cat-card-content">
-                        <span class="cat-number">05</span>
-                        <h3>The Sunbather</h3>
-                        <p>
-                            Gravity is optional. So is dignity.
-                        </p>
-                    </div>
+            <div class="center-actions">
+                <a href="cats.html" class="button button-secondary">
+                    Meet the whole crew
+                </a>
+            </div>
 
-                </article>
-                <article class="cat-card">
-                    <div class="cat-image">
-                        <img
-                            src="images/cats/young_paradox_howl.JPG"
-                            alt="Two young ginger cats curled up asleep together on a paw-print blanket"
-                            loading="lazy"
-                        >
-                    </div>
+        </section>
 
-                    <div class="cat-card-content">
-                        <span class="cat-number">06</span>
-                        <h3>The Originals</h3>
-                        <p>
-                            Where all of this started.
-                        </p>
-                    </div>
 
-                </article>
-                <article class="cat-card">
-                    <div class="cat-image">
-                        <img
-                            src="images/cats/zeta_entropy_suits.jpeg"
-                            alt="Two long-haired cats in matching red recovery suits watching the yard through a door"
-                            loading="lazy"
-                        >
-                    </div>
+        <!-- Journal preview -->
+        <section class="section section-tight">
 
-                    <div class="cat-card-content">
-                        <span class="cat-number">07</span>
-                        <h3>The Matching Set</h3>
-                        <p>
-                            Recovery suits. Zero enthusiasm.
-                            Excellent view.
-                        </p>
-                    </div>
+            <div class="section-heading centered">
+                <span class="eyebrow">FROM THE JOURNAL</span>
+                <h2>
+                    Recent <span>entries.</span>
+                </h2>
+            </div>
 
-                </article>
+            <div class="post-list embedded">
 
+                <a class="post-item" href="posts/2026-08-02-the-catio-in-august.html">
+                    <span class="post-date">2 August 2026</span>
+                    <h2>The catio in August</h2>
+                    <p>
+                        Two cats, one screened porch, and a bird feeder
+                        that has become appointment viewing.
+                    </p>
+                </a>
+
+                <a class="post-item" href="posts/2026-07-14-matching-suits.html">
+                    <span class="post-date">14 July 2026</span>
+                    <h2>Matching suits, zero enthusiasm</h2>
+                    <p>
+                        Recovery suits are a hard sell. The view out the
+                        back door, apparently, is not.
+                    </p>
+                </a>
+
+                <a class="post-item" href="posts/2026-06-21-puzzle-season.html">
+                    <span class="post-date">21 June 2026</span>
+                    <h2>From the archive: puzzle season</h2>
+                    <p>
+                        Some cats supervise jigsaw puzzles. Howl preferred
+                        to sit on them.
+                    </p>
+                </a>
+
+            </div>
+
+            <div class="center-actions">
+                <a href="journal.html" class="button button-secondary">
+                    All entries
+                </a>
             </div>
 
         </section>
