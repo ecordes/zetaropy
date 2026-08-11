@@ -18,8 +18,17 @@
     --ink: #20201d;
     --muted: #716f68;
 
-    --orange: #e97845;
-    --orange-dark: #c85c2f;
+    /*
+       Accent. Slate blue, drawn from Entropy's coat.
+       Every accent use goes through these four, so a
+       page can retheme itself by overriding them --
+       see PER-CAT ACCENTS near the end of this file.
+    */
+
+    --accent: #456079;
+    --accent-dark: #2f4658;
+    --accent-soft: rgba(69, 96, 121, 0.10);
+    --accent-glow: rgba(69, 96, 121, 0.35);
 
     --sage: #a9b7a0;
     --dark-green: #26352d;
@@ -78,8 +87,8 @@ body {
     background-image:
         radial-gradient(
             circle at 10% 10%,
-            rgba(233, 120, 69, 0.10) 0,
-            rgba(233, 120, 69, 0.10) 2px,
+            var(--accent-soft) 0,
+            var(--accent-soft) 2px,
             transparent 3px
         ),
         radial-gradient(
@@ -139,7 +148,7 @@ body {
 }
 
 .nav-links a:hover {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 
@@ -164,7 +173,7 @@ body {
 
     margin-bottom: 18px;
 
-    color: var(--orange);
+    color: var(--accent);
 
     font-size: 0.75rem;
     font-weight: 700;
@@ -177,7 +186,7 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-size: clamp(2.6rem, 5vw, 4.6rem);
     line-height: 0.95;
 
     letter-spacing: -0.055em;
@@ -186,7 +195,7 @@ body {
 .hero h1 span,
 .section-heading h2 span,
 .cta h2 span {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 .hero-text {
@@ -230,11 +239,11 @@ body {
 
 .button-primary {
     color: var(--white);
-    background: var(--orange);
+    background: var(--accent);
 }
 
 .button-primary:hover {
-    background: var(--orange-dark);
+    background: var(--accent-dark);
 }
 
 .button-secondary {
@@ -258,7 +267,7 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(2.7rem, 5vw, 4.5rem);
+    font-size: clamp(2rem, 3.8vw, 3.4rem);
     line-height: 1;
 
     letter-spacing: -0.04em;
@@ -362,7 +371,7 @@ body {
 }
 
 .cat-number {
-    color: var(--orange);
+    color: var(--accent);
 
     font-size: 0.75rem;
     font-weight: 700;
@@ -375,7 +384,7 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .cat-card p {
@@ -399,7 +408,7 @@ body {
     background:
         radial-gradient(
             circle at 80% 20%,
-            rgba(233, 120, 69, 0.35),
+            var(--accent-glow),
             transparent 30%
         ),
         var(--dark-green);
@@ -415,7 +424,7 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-size: clamp(2.2rem, 4.4vw, 3.9rem);
 
     line-height: 0.98;
 
@@ -512,7 +521,7 @@ body {
     }
 
     .hero h1 {
-        font-size: 3.5rem;
+        font-size: 2.6rem;
     }
 
     .cat-image img {
@@ -526,7 +535,7 @@ body {
    ========================================= */
 
 .nav-links a.active {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 
@@ -549,14 +558,14 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
     line-height: 0.98;
 
     letter-spacing: -0.05em;
 }
 
 .page-header h1 span {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 .page-lead {
@@ -590,7 +599,7 @@ body {
 }
 
 .back-link:hover {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 
@@ -610,7 +619,7 @@ body {
 
     margin-top: 14px;
 
-    color: var(--orange);
+    color: var(--accent);
 
     font-size: 0.85rem;
     font-weight: 700;
@@ -700,7 +709,7 @@ body {
 }
 
 .fact-list dt {
-    color: var(--orange);
+    color: var(--accent);
 
     font-size: 0.75rem;
     font-weight: 700;
@@ -741,7 +750,7 @@ body {
 }
 
 .post-date {
-    color: var(--orange);
+    color: var(--accent);
 
     font-size: 0.75rem;
     font-weight: 700;
@@ -756,7 +765,7 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    font-size: clamp(1.5rem, 2.7vw, 2.1rem);
     line-height: 1.05;
 
     letter-spacing: -0.03em;
@@ -765,7 +774,7 @@ body {
 }
 
 .post-item:hover h2 {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 .post-item p {
@@ -807,7 +816,7 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: 2rem;
+    font-size: 1.5rem;
 
     letter-spacing: -0.03em;
 }
@@ -853,7 +862,7 @@ body {
 }
 
 .post-footer a:hover {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 
@@ -919,4 +928,50 @@ body {
 .post-list.embedded {
     padding-top: 10px;
     padding-bottom: 40px;
+}
+
+
+/* =========================================
+   PER-CAT ACCENTS
+
+   Each profile page carries a body class and
+   overrides the accent variables. Nothing else
+   in the stylesheet needs to know -- every
+   accent use already reads var(--accent).
+
+   All four clear 4.5:1 against the cream
+   background, so the small bold eyebrow text
+   stays legible.
+   ========================================= */
+
+/* Zeta -- long black coat */
+.cat-zeta {
+    --accent: #33383d;
+    --accent-dark: #22262a;
+    --accent-soft: rgba(51, 56, 61, 0.10);
+    --accent-glow: rgba(51, 56, 61, 0.35);
+}
+
+/* Entropy -- the blue coat the site accent came from */
+.cat-entropy {
+    --accent: #456079;
+    --accent-dark: #2f4658;
+    --accent-soft: rgba(69, 96, 121, 0.10);
+    --accent-glow: rgba(69, 96, 121, 0.35);
+}
+
+/* Paradox -- deep ginger, warmer and darker than the old orange */
+.cat-paradox {
+    --accent: #9c5228;
+    --accent-dark: #7a3f1e;
+    --accent-soft: rgba(156, 82, 40, 0.10);
+    --accent-glow: rgba(156, 82, 40, 0.35);
+}
+
+/* Howl -- warm sand, from the pale cream coat */
+.cat-howl {
+    --accent: #7d5f3d;
+    --accent-dark: #5f482e;
+    --accent-soft: rgba(125, 95, 61, 0.10);
+    --accent-glow: rgba(125, 95, 61, 0.35);
 }
