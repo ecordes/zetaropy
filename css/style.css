@@ -73,6 +73,15 @@ body {
 img {
     display: block;
     width: 100%;
+
+    /*
+       Keep the aspect ratio from the width/height
+       attributes. Without this, CSS overrides the
+       width but the height attribute still applies
+       literally, distorting any image whose height
+       is not otherwise constrained.
+    */
+    height: auto;
 }
 
 a {
