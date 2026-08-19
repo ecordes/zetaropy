@@ -553,6 +553,17 @@ body {
         display: none;
     }
 
+    /* Four primary links now; keep the bar on one line. */
+    .logo {
+        font-size: 1.15rem;
+    }
+
+    .nav-links {
+        gap: 12px;
+
+        font-size: 0.85rem;
+    }
+
     .hero {
         padding-left: 7%;
         padding-right: 7%;
@@ -1104,4 +1115,277 @@ body {
     --accent-dark: #5f482e;
     --accent-soft: rgba(125, 95, 61, 0.10);
     --accent-glow: rgba(125, 95, 61, 0.35);
+}
+
+
+/* =========================================
+   GALLERY
+
+   Per-cat gallery wings. On wide screens the
+   works hang on one long wall walked by
+   horizontal scroll; on small screens the
+   wall folds into a vertical stroll.
+   ========================================= */
+
+.gallery-wall {
+    display: flex;
+    align-items: center;
+    gap: 4vw;
+
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+
+    padding: 70px 6vw 90px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--cream) 0%,
+            var(--cream-dark) 100%
+        );
+
+    /* the picture rail */
+    border-top: 5px solid rgba(32, 32, 29, 0.18);
+}
+
+.artwork {
+    margin: 0;
+
+    flex: 0 0 auto;
+
+    scroll-snap-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/*
+   The frame is a button so every work is
+   keyboard-operable; the layered borders are
+   walnut, fillet, and mat.
+*/
+.artwork-frame {
+    display: block;
+    padding: clamp(14px, 2.2vw, 30px);
+
+    background: var(--white);
+
+    border: 14px solid #433124;
+    outline: 1px solid rgba(0, 0, 0, 0.4);
+
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+        0 22px 45px rgba(32, 32, 29, 0.3);
+
+    cursor: pointer;
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.artwork-frame:hover,
+.artwork-frame:focus-visible {
+    transform: translateY(-6px);
+
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+        0 30px 60px rgba(32, 32, 29, 0.38);
+}
+
+.artwork-frame img {
+    display: block;
+
+    height: min(48vh, 520px);
+    width: auto;
+    max-width: 76vw;
+}
+
+/* Museum label */
+.placard {
+    width: min(320px, 80vw);
+
+    padding: 14px 18px;
+
+    background: var(--white);
+
+    border: 1px solid rgba(32, 32, 29, 0.14);
+
+    box-shadow: 0 6px 18px rgba(32, 32, 29, 0.08);
+
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+.placard span {
+    display: block;
+}
+
+.placard-no {
+    color: var(--accent);
+
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+}
+
+.placard-title {
+    margin: 4px 0 2px;
+
+    font-family: "Playfair Display", serif;
+    font-size: 1.05rem;
+    font-style: italic;
+}
+
+.placard-medium {
+    color: var(--muted);
+}
+
+.placard-note {
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-style: italic;
+}
+
+.wall-hint {
+    max-width: var(--max-width);
+
+    margin: 0 auto;
+    padding: 18px 5% 12px;
+
+    color: var(--muted);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+}
+
+
+/* ---------- Lightbox (the close look) ---------- */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    padding: 4vh 5vw;
+
+    background: rgba(28, 38, 33, 0.95);
+}
+
+.lightbox[hidden] {
+    display: none;
+}
+
+.lightbox img {
+    max-height: 72vh;
+    width: auto;
+    max-width: 92vw;
+
+    border: 10px solid var(--white);
+
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox .placard {
+    border: none;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+
+    font-size: 1.2rem;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.lightbox-close {
+    top: 22px;
+    right: 22px;
+}
+
+.lightbox-prev {
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-next {
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+
+
+/* ---------- Gallery responsive ---------- */
+
+@media (max-width: 800px) {
+
+    /* The wall folds vertical: a stroll, not a scroll. */
+    .gallery-wall {
+        flex-direction: column;
+        gap: 70px;
+
+        overflow-x: visible;
+        scroll-snap-type: none;
+
+        padding: 60px 7% 80px;
+    }
+
+    .artwork-frame {
+        border-width: 10px;
+    }
+
+    .artwork-frame img {
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .wall-hint {
+        display: none;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+        top: auto;
+        bottom: 18px;
+    }
 }
