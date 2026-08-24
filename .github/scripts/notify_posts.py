@@ -10,28 +10,36 @@ Rules:
     message in the push contains the token [notify] -- so typo fixes
     stay silent.
 
-Configuration comes from the environment (GitHub secrets):
-  MAIL_SERVER      SMTP host, e.g. smtp.gmail.com
-  MAIL_PORT        587 for STARTTLS (default) or 465 for implicit TLS
-  MAIL_USERNAME    SMTP login
-  MAIL_PASSWORD    SMTP app password
-  MAIL_FROM        From address (defaults to MAIL_USERNAME)
-  MAIL_RECIPIENTS  comma-separated list; sent as BCC so readers never
-                   see each other's addresses
+Mail goes out through the Mailgun HTTP API.
 
-Stdlib only, by design.
+Configuration comes from the environment (GitHub secrets):
+  MAILGUN_API_KEY   Mailgun private API key
+  MAILGUN_DOMAIN    verified sending domain, e.g. mg.zetaropy.com
+  MAILGUN_API_BASE  optional; set to https://api.eu.mailgun.net for the
+                    EU region (default is the US endpoint)
+  MAIL_FROM         optional From address; defaults to
+                    "Zetaropy <journal@MAILGUN_DOMAIN>"
+  MAIL_RECIPIENTS   comma-separated list; sent as BCC so readers never
+                    see each other's addresses
+
+Stdlib only, by design -- the API is plain form-encoded POST with
+HTTP basic auth, so no mailgun SDK is needed.
 """
 
 import argparse
+import base64
+import json
 import os
 import re
-import smtplib
 import subprocess
 import sys
-from email.message import EmailMessage
+import urllib.error
+import urllib.parse
+import urllib.request
 
 SITE = "https://www.zetaropy.com"
 NOTIFY_TOKEN = "[notify]"
+DEFAULT_API_BASE = "https://api.mailgun.net"
 
 
 def run(*cmd):
@@ -115,10 +123,14 @@ def compose(new, updated, ref):
 
 def send(subject, body, dry_run):
     recipients = [r.strip() for r in os.environ.get("MAIL_RECIPIENTS", "").split(",") if r.strip()]
-    sender = os.environ.get("MAIL_FROM") or os.environ.get("MAIL_USERNAME", "")
+    domain = os.environ.get("MAILGUN_DOMAIN", "").strip()
+    sender = os.environ.get("MAIL_FROM", "").strip()
+    if not sender and domain:
+        sender = f"Zetaropy <journal@{domain}>"
 
     if dry_run:
         print(f"DRY RUN — would send to {len(recipients)} recipient(s)")
+        print(f"From: {sender or '(unset)'}")
         print(f"Subject: {subject}")
         print()
         print(body)
@@ -127,28 +139,35 @@ def send(subject, body, dry_run):
     if not recipients:
         sys.exit("MAIL_RECIPIENTS is empty; nothing to send to")
 
-    msg = EmailMessage()
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = sender          # readers are BCC'd; To keeps headers tidy
-    msg["Bcc"] = ", ".join(recipients)
-    msg.set_content(body)
+    api_key = os.environ.get("MAILGUN_API_KEY", "").strip()
+    missing = [name for name, value in
+               (("MAILGUN_API_KEY", api_key), ("MAILGUN_DOMAIN", domain)) if not value]
+    if missing:
+        sys.exit(f"Mailgun is not configured: {', '.join(missing)} not set")
 
-    server = os.environ["MAIL_SERVER"]
-    port = int(os.environ.get("MAIL_PORT", "587"))
-    username = os.environ["MAIL_USERNAME"]
-    password = os.environ["MAIL_PASSWORD"]
+    api_base = os.environ.get("MAILGUN_API_BASE", "").strip() or DEFAULT_API_BASE
+    url = f"{api_base.rstrip('/')}/v3/{domain}/messages"
 
-    if port == 465:
-        with smtplib.SMTP_SSL(server, port) as smtp:
-            smtp.login(username, password)
-            smtp.send_message(msg)
-    else:
-        with smtplib.SMTP(server, port) as smtp:
-            smtp.starttls()
-            smtp.login(username, password)
-            smtp.send_message(msg)
+    # Readers go in BCC so they never see each other; To keeps headers tidy.
+    fields = [("from", sender), ("to", sender), ("subject", subject), ("text", body)]
+    fields += [("bcc", r) for r in recipients]
+
+    request = urllib.request.Request(url, data=urllib.parse.urlencode(fields).encode())
+    token = base64.b64encode(f"api:{api_key}".encode()).decode()
+    request.add_header("Authorization", f"Basic {token}")
+
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            payload = json.loads(response.read().decode() or "{}")
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode(errors="replace").strip()
+        sys.exit(f"Mailgun rejected the message (HTTP {exc.code}): {detail}")
+    except urllib.error.URLError as exc:
+        sys.exit(f"Could not reach Mailgun at {api_base}: {exc.reason}")
+
     print(f"Sent to {len(recipients)} recipient(s): {subject}")
+    if payload.get("id"):
+        print(f"Mailgun message id: {payload['id']}")
 
 
 def main():

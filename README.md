@@ -15,23 +15,43 @@ of readers when the journal changes:
 
 Recipients are BCC'd, so readers never see each other's addresses.
 
+Delivery goes through the [Mailgun](https://www.mailgun.com) HTTP API.
+The script is stdlib-only — no SDK to install.
+
 ### One-time setup
 
-Create an app password with your mail provider, then set the repo
-secrets (run these yourself; the password prompt keeps it out of
-shell history):
+In Mailgun: add a sending domain (or use the sandbox domain for
+testing) and complete its DNS verification, then copy the private API
+key from Settings → API keys.
+
+Then set the repo secrets (run these yourself; the prompt keeps the
+key out of shell history):
 
 ```bash
-gh secret set MAIL_SERVER      --body "smtp.example.com"
-gh secret set MAIL_PORT        --body "587"
-gh secret set MAIL_USERNAME    --body "you@example.com"
-gh secret set MAIL_PASSWORD                 # paste when prompted
-gh secret set MAIL_FROM        --body "you@example.com"
+gh secret set MAILGUN_API_KEY                  # paste when prompted
+gh secret set MAILGUN_DOMAIN   --body "mg.zetaropy.com"
+gh secret set MAIL_FROM        --body "Zetaropy <journal@mg.zetaropy.com>"
 gh secret set MAIL_RECIPIENTS  --body "a@example.com, b@example.com"
 ```
 
-Port 587 uses STARTTLS; 465 uses implicit TLS. `MAIL_FROM` is
-optional and defaults to `MAIL_USERNAME`.
+`MAIL_FROM` is optional — it defaults to
+`Zetaropy <journal@MAILGUN_DOMAIN>`. The address must be on the
+Mailgun domain, or Mailgun will reject the message.
+
+If your Mailgun account is in the EU region, also set:
+
+```bash
+gh secret set MAILGUN_API_BASE --body "https://api.eu.mailgun.net"
+```
+
+Two Mailgun gotchas worth knowing:
+
+- A **sandbox** domain only delivers to *authorized recipients* (up to
+  five, each confirmed by clicking a link in an invite email). Fine
+  for a first test; a verified domain is needed for a real list.
+- A verified domain needs its DNS records in place, or sends fail with
+  a "domain not allowed to send" error. That error text is printed
+  straight into the workflow log.
 
 To change the reader list later, re-run the `MAIL_RECIPIENTS` line
 with the full new list (secrets can't be read back, only replaced).

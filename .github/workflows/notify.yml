@@ -30,10 +30,9 @@ jobs:
 
       - name: Announce changed posts
         env:
-          MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
-          MAIL_PORT: ${{ secrets.MAIL_PORT }}
-          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+          MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+          MAILGUN_API_BASE: ${{ secrets.MAILGUN_API_BASE }}
           MAIL_FROM: ${{ secrets.MAIL_FROM }}
           MAIL_RECIPIENTS: ${{ secrets.MAIL_RECIPIENTS }}
         run: |
