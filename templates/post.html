@@ -1,0 +1,31 @@
+    <main>
+
+        <div class="page-header">
+
+            <a href="../journal.html" class="back-link">← All entries</a>
+
+            <span class="eyebrow">{{ eyebrow }}</span>
+
+            <h1>
+                {{ headline_html }}
+            </h1>
+
+        </div>
+
+
+        <article class="post">
+
+            <div class="post-body">
+
+{{ content }}
+
+            </div>
+
+            <div class="post-footer">
+                <a href="{{ next_href }}">{{ next_label }}</a>
+                <a href="{{ prev_href }}">{{ prev_label }}</a>
+            </div>
+
+        </article>
+
+    </main>
