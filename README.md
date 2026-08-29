@@ -7,8 +7,9 @@ A GitHub Action (`.github/workflows/notify.yml`) emails a private list
 of readers when the journal changes:
 
 - **New post pushed to `main`** → email goes out automatically.
-- **Edited post** → silent, unless a commit message in the push
-  contains `[notify]`.
+- **Edited post** → silent, unless a commit message in the push has a
+  line consisting of exactly `[notify]`. It must be a line of its own —
+  merely mentioning the token in prose does not count.
 - **Manual**: Actions tab → "Notify readers of journal entries" →
   Run workflow, naming the post. A `dry_run` option prints the email
   in the workflow log instead of sending it.

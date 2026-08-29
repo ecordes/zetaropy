@@ -7,8 +7,10 @@ single post via workflow_dispatch.
 Rules:
   - A post file ADDED in the push is always announced.
   - A post file MODIFIED in the push is announced only when some commit
-    message in the push contains the token [notify] -- so typo fixes
-    stay silent.
+    message in the push carries the token [notify] on a line of its own
+    -- so typo fixes stay silent, and so does prose that merely mentions
+    the token (a substring match once emailed readers because a commit
+    message said "No [notify]: ... stay quiet").
 
 Mail goes out through the Mailgun HTTP API.
 
@@ -72,6 +74,16 @@ def parse_post(path, ref):
     }
 
 
+def notify_requested(messages):
+    """True when a commit deliberately asks to announce updated posts.
+
+    Only a line consisting of exactly the token counts. Prose can
+    wrap or quote [notify] mid-sentence by accident; nobody writes it
+    alone on a line except on purpose.
+    """
+    return any(line.strip() == NOTIFY_TOKEN for line in messages.splitlines())
+
+
 def changed_posts(base, head):
     """Return (new, updated) post paths between two commits."""
     if not base or set(base) == {"0"}:
@@ -90,7 +102,7 @@ def changed_posts(base, head):
             updated.append(path)
     if updated:
         messages = run("git", "log", "--format=%B", f"{base}..{head}")
-        if NOTIFY_TOKEN not in messages:
+        if not notify_requested(messages):
             updated = []
     return new, updated
 
