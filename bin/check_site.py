@@ -76,7 +76,7 @@ def check_links():
         for link in re.findall(r'(?:href|src)="([^"]+)"', read(page)):
             if link.startswith(("http://", "https://", "mailto:", "#")):
                 continue
-            target = link.split("#")[0]
+            target = link.split("#")[0].split("?")[0]
             if target and not os.path.exists(os.path.normpath(os.path.join(base, target))):
                 out.append(f"{page}: broken link -> {link}")
     return out
