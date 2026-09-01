@@ -5,10 +5,14 @@
     <polygon points="48,20 46,5 36,19" fill="#8494a2"/>
     <g fill="#456079">
         <!-- top bar -->
-        <rect x="13" y="20" width="36" height="8"/>
-        <!-- shallow diagonal: right end joins top bar, left end joins bottom bar -->
-        <polygon points="13,41 49,28 49,36 13,49"/>
+        <rect x="13" y="20" width="36" height="7"/>
+        <!-- upper connector -->
+        <polygon points="41,27 49,27 43,35 35,35"/>
+        <!-- lower connector -->
+        <polygon points="19,42 27,42 21,50 13,50"/>
         <!-- bottom bar -->
-        <rect x="13" y="49" width="36" height="8"/>
+        <rect x="13" y="50" width="36" height="7"/>
     </g>
+    <!-- middle bar, the E's arm and the Z's step, in Zeta's black -->
+    <rect x="19" y="35" width="24" height="7" fill="#33383d"/>
 </svg>

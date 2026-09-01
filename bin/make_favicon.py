@@ -1,9 +1,11 @@
 """Rasterize favicon.svg's design to favicon.ico and apple-touch-icon.png.
 
-The mark: a bold slate Z whose shallow diagonal lets the three strokes
-read as an E at a glance (Zeta's Z, Entropy's E), wearing one cat ear
-per cat -- Zeta's near-black on the left, Entropy's coat gray on the
-right, on the site's cream in a rounded square.
+The mark: a slate Z whose diagonal steps through a horizontal middle
+bar, so the strokes also read as an E -- Zeta's Z, Entropy's E. The
+middle bar is picked out in Zeta's near-black, which keeps the step
+legible at tab size. On top, one cat ear per cat: Zeta's black on the
+left, Entropy's coat gray on the right, all on the site's cream in a
+rounded square.
 
 The geometry here mirrors favicon.svg exactly; change them together.
 Stdlib only (no imaging libraries on this machine): shapes are drawn
@@ -20,18 +22,20 @@ import zlib
 os.chdir(os.path.join(os.path.dirname(__file__), ".."))
 
 CREAM = (0xF7, 0xF3, 0xEB)
-SLATE = (0x45, 0x60, 0x79)      # the Z/E glyph
-EAR_ZETA = (0x33, 0x38, 0x3D)   # left ear, her black coat
+SLATE = (0x45, 0x60, 0x79)        # bars and connectors
+NEAR_BLACK = (0x33, 0x38, 0x3D)   # middle bar and left ear, Zeta's coat
 EAR_ENTROPY = (0x84, 0x94, 0xA2)  # right ear, his gray coat
 
 # All coordinates in favicon.svg's 64x64 space.
 EAR_LEFT = [(16, 20), (18, 5), (28, 19)]
 EAR_RIGHT = [(48, 20), (46, 5), (36, 19)]
-GLYPH = [
-    [(13, 20), (49, 20), (49, 28), (13, 28)],   # top bar
-    [(13, 41), (49, 28), (49, 36), (13, 49)],   # shallow diagonal
-    [(13, 49), (49, 49), (49, 57), (13, 57)],   # bottom bar
+SLATE_SHAPES = [
+    [(13, 20), (49, 20), (49, 27), (13, 27)],   # top bar
+    [(41, 27), (49, 27), (43, 35), (35, 35)],   # upper connector
+    [(19, 42), (27, 42), (21, 50), (13, 50)],   # lower connector
+    [(13, 50), (49, 50), (49, 57), (13, 57)],   # bottom bar
 ]
+MIDDLE_BAR = [(19, 35), (43, 35), (43, 42), (19, 42)]
 
 
 def in_polygon(x, y, poly):
@@ -54,13 +58,15 @@ def in_rounded_rect(x, y, size, radius):
 
 
 def color_at(x, y):
-    """Topmost color at a point in the 64x64 design space, or None.
-    Draw order in the SVG is bg, ears, glyph -- so test in reverse."""
-    for poly in GLYPH:
+    """Topmost color at a point in the 64x64 design space.
+    SVG draw order is bg, ears, slate shapes, middle bar -- test in reverse."""
+    if in_polygon(x, y, MIDDLE_BAR):
+        return NEAR_BLACK
+    for poly in SLATE_SHAPES:
         if in_polygon(x, y, poly):
             return SLATE
     if in_polygon(x, y, EAR_LEFT):
-        return EAR_ZETA
+        return NEAR_BLACK
     if in_polygon(x, y, EAR_RIGHT):
         return EAR_ENTROPY
     return CREAM
