@@ -42,8 +42,10 @@ def pages():
 
 
 def check_photos_hung():
-    """Every photo in images/cats/ hangs in some gallery wing."""
-    photos = {os.path.basename(p) for p in glob.glob("images/cats/*")
+    """Every photo in images/cats/ (recursive: <year>/<post>/ and _profile/<cat>/)
+    hangs in some gallery wing. Compares full paths under images/cats/, not bare
+    filenames -- two different posts could otherwise reuse a filename."""
+    photos = {os.path.relpath(p, "images/cats") for p in glob.glob("images/cats/**/*", recursive=True)
               if re.search(r"\.(jpe?g|png)$", p, re.I)}
     hung = set()
     for wing in glob.glob("gallery/*.html"):
